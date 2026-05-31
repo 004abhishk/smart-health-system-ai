@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-health-system-ai"
+version = "2.1.0"
+description = "An intelligent multi-agent system for smart health management, analysis, and doctor recommendation  using LangGraph, Gemini AI, and RAG."
+readme = "README.md"
+authors = [
+    { name = "GenAI Live Course Team" }
+]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "langchain-core>=0.3.0",
+    "langchain-google-genai>=3.0.0",
+    "langchain-text-splitters>=0.3.0",
+    "pinecone>=3.0.0",
+    "pandas==2.2.3",
+    "requests==2.32.3",
+    "pydantic>=2.10.3",
+    "pydantic-settings>=2.6.1",
+    "streamlit==1.40.2",
+    "plotly==5.18.0",
+    "sqlalchemy>=2.0.31",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0"
+]
+
+[project.scripts]
+smart-health-system-ai= "main:main"
+
+[tool.setuptools.packages.find]
+include = ["api*", "agents*", "config*", "core*", "ui*", "utils*"]
