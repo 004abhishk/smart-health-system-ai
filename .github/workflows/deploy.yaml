@@ -119,6 +119,7 @@ jobs:
             --cpu 2 \
             --timeout 300 \
             --max-instances 10 \
+            --service-account ${{ vars.SERVICE_ACCOUNT }} \
             --port 8000 \
             --min-instances 0 \
             --set-env-vars "LOG_LEVEL=INFO" \
