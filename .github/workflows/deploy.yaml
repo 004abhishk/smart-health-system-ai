@@ -13,7 +13,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: asia-south1
   SERVICE_NAME: smart-health-system-ai
-  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/healthlink
+  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/smart-health-system-ai
 
 jobs:
   test:

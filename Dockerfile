@@ -56,9 +56,9 @@ COPY . .
 RUN mkdir -p /app/data /app/logs
 
 # Create non-root user
-RUN useradd -m -u 1000 healthlink && \
-    chown -R healthlink:healthlink /app
-USER healthlink
+RUN useradd -m -u 1000 smart-health-system-ai && \
+    chown -R smart-health-system-ai:smart-health-system-ai /app
+USER smart-health-system-ai
 
 # Expose port
 EXPOSE 8000
