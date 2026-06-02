@@ -132,7 +132,7 @@ jobs:
             --service-account ${{ vars.SERVICE_ACCOUNT }} \
             --port 8000 \
             --min-instances 0 \
-            --set-env-vars "LOG_LEVEL=INFO" \
+            --set-env-vars "LOG_LEVEL=INFO,CORS_ORIGINS=*" \
             --set-secrets "GEMINI_API_KEY=GEMINI_API_KEY:latest,PINECONE_API_KEY=PINECONE_API_KEY:latest"
 
       - name: Get API service URL
@@ -169,13 +169,6 @@ jobs:
             --region ${{ env.REGION }} \
             --format='value(status.url)')
           echo "ui_url=$UI_URL" >> $GITHUB_OUTPUT
-
-      - name: Update API CORS to include UI URL
-        run: |
-          echo "Updating API CORS_ORIGINS to include UI URL"
-          gcloud run services update ${{ env.SERVICE_NAME }} \
-            --region ${{ env.REGION }} \
-            --update-env-vars "CORS_ORIGINS=${{ steps.ui_service.outputs.ui_url }}"
 
   notify:
     name: Notify Deployment Status
