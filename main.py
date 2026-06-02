@@ -2,6 +2,7 @@
 HealthLink - Smart Health Management System
 Main FastAPI application entry point.
 """
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -54,8 +55,15 @@ async def lifespan(app: FastAPI):
     try:
         kb_file = "./data/symptoms_kb.json"
         if os.path.exists(kb_file):
-            load_knowledge_base(kb_file, settings)
-            logger.info("Knowledge base loaded successfully")
+            async def _load_kb():
+                try:
+                    load_knowledge_base(kb_file, settings)
+                    logger.info("Knowledge base loaded successfully")
+                except Exception as kb_exc:
+                    logger.error(f"Background RAG initialization failed: {kb_exc}", exc_info=True)
+
+            asyncio.create_task(_load_kb())
+            logger.info("Knowledge base load started in the background")
         else:
             logger.warning(f"Knowledge base file not found: {kb_file}")
     except Exception as e:
