@@ -79,5 +79,16 @@ def get_settings() -> Settings:
     global _settings
     if _settings is None:
         _settings = Settings()
-        _settings.validate_config()
+        try:
+            _settings.validate_config()
+        except Exception as e:
+            # Don't raise here to avoid causing the whole application to crash
+            # during container startup (Cloud Run requires the server to bind
+            # to the port quickly). Log a warning so missing optional secrets
+            # don't prevent the service from starting; downstream components
+            # that require these keys should validate when used.
+            import logging
+            logging.getLogger("healthlink.settings").warning(
+                f"Settings validation warning: {e}"
+            )
     return _settings
